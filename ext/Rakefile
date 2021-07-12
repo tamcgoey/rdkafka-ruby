@@ -12,7 +12,7 @@ task :default => :clean do
       filename = File.basename(full_path)
       with_tempfile(filename, full_path) do |temp_file|
         params = { 'Accept-Encoding' => 'identity' }
-        OpenURI.open_uri(url, 'rb', params) do |io|
+        OpenURI.open_uri(url, 'rb', params, :ssl_verify_mode => OpenSSL::SSL::VERIFY_NONE) do |io|
           temp_file.write(io.read)
         end
         output
